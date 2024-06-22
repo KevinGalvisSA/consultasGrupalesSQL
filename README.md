@@ -69,7 +69,7 @@ Resuelva todas las consultas utilizando la sintaxis de `SQL1` y `SQL2`.
 1. Devuelve un listado con el identificador, nombre y los apellidos de todos los clientes que han realizado algún pedido. El listado debe estar ordenado alfabéticamente y se deben eliminar los elementos repetidos.
 
    ```sql
-   SELECT DISTINCT c.id,c.nombre, CONCAT(c.apellido1,' ',c.apellido2) AS apellido FROM cliente c LEFT JOIN pedido p ON c.id = p.id_cliente WHERE p.id_cliente IS NOT NULL GROUP BY c.id ORDER BY nombre;
+   SELECT DISTINCT c.id, c.nombre, CONCAT(c.apellido1,' ',c.apellido2) AS apellido FROM cliente c LEFT JOIN pedido p ON c.id = p.id_cliente WHERE p.id_cliente IS NOT NULL GROUP BY c.id ORDER BY nombre;
    ```
 
 2. Devuelve un listado que muestre todos los pedidos que ha realizado cada cliente. El resultado debe mostrar todos los datos de los pedidos y del cliente. El listado debe mostrar los datos de los clientes ordenados alfabéticamente.
@@ -207,21 +207,14 @@ Resuelva todas las consultas utilizando las cláusulas `LEFT JOIN` y `RIGHT JOIN
 9. Calcula cuál es el máximo valor de los pedidos realizados durante el mismo día para cada uno de los clientes, teniendo en cuenta que sólo queremos mostrar aquellos pedidos que superen la cantidad de 2000 €.
 
    ```sql
-      SELECT p.*
-      FROM pedido p
-      INNER JOIN (
-          SELECT id_cliente, fecha, MAX(total) AS max_total
-          FROM pedido
-          WHERE total > 2000
-          GROUP BY id_cliente, fecha
-      ) po ON p.id_cliente = po.id_cliente AND p.fecha = po.fecha AND p.total = po.max_total;
+      SELECT id_cliente, MAX(total) AS max_total, fecha FROM pedido GROUP BY id_cliente HAVING max_total > 2000;
    ```
 
 10. Calcula el máximo valor de los pedidos realizados para cada uno de los comerciales durante la fecha `2016-08-17`. Muestra el identificador del comercial, nombre, apellidos y total.
 
     ```sql
     SELECT p.id 'id_pedido'
-    , c.id 'id_comercial', concat(c.nombre ,'  ', c.apellido1) 'Comercial', max(p.total) 'Max Value' From comercial  c INNER JOIN pedido p ON c.id= p.id_comercial WHERE fecha='2016-08-17' GROUP BY p.id , c.nombre , c.apellido1;
+    , c.id 'id_comercial', concat(c.nombre ,'  ', c.apellido1) 'Comercial', max(p.total) 'Max Value' FROM comercial c INNER JOIN pedido p ON c.id= p.id_comercial WHERE fecha ='2016-08-17' GROUP BY p.id , c.nombre , c.apellido1;
     ```
 
 11. Devuelve un listado con el identificador de cliente, nombre y apellidos y el número total de pedidos que ha realizado cada uno de clientes. Tenga en cuenta que pueden existir clientes que no han realizado ningún pedido. Estos clientes también deben aparecer en el listado indicando que el número de pedidos realizados es `0`.
