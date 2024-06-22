@@ -21,13 +21,13 @@
 4. Devuelve un listado de todos los pedidos que se realizaron durante el año 2017, cuya cantidad total sea superior a 500€.
 
    ```sql
-   SELECT * FROM pedido WHERE YEAR(fecha) = 2017 and total > 500;
+   SELECT * FROM pedido WHERE YEAR(fecha) = 2017 AND total > 500;
    ```
 
 5. Devuelve un listado con el nombre y los apellidos de los comerciales que tienen una comisión entre 0.05 y 0.11.
 
    ```sql
-   SELECT CONCAT(nombre,' ',apellido1,' ',apellido2) AS apellido from comercial where comision BETWEEN 0.05 AND 0.11;
+   SELECT CONCAT(nombre,' ',apellido1,' ',apellido2) AS apellido FROM comercial WHERE comision BETWEEN 0.05 AND 0.11;
    ```
 
 6. Devuelve el valor de la comisión de mayor valor que existe en la tabla `comercial`.
@@ -51,7 +51,7 @@
 9. Devuelve un listado de los nombres de los clientes que **no** empiezan por `A`. El listado deberá estar ordenado alfabéticamente.
 
    ```sql
-   SELECT nombre FROM cliente WHERE nombre NOT LIKE 'A%' ORDER BY nombre;
+   SELECT nombre FROM cliente WHERE nombre NOT LIKE 'a%' ORDER BY nombre;
    ```
 
 10. Devuelve un listado con los nombres de los comerciales que terminan por `el` o `o`. Tenga en cuenta que se deberán eliminar los nombres repetidos.
